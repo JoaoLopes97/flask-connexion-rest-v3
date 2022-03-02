@@ -1,5 +1,7 @@
 from server import app
-with app.test_client() as c:
+import json     
+with app.app.test_client() as c:
     response = c.get('/api/people/Farrell')
-    assert response.data.fname == b'Doug'
+    data = json.loads(response.data)
+    assert data["fname"] == "Doug"
     assert response.status_code == 200
