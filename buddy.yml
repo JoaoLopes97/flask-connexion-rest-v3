@@ -1,0 +1,21 @@
+- pipeline: "Build & Test"
+  trigger_mode: "ON_EVERY_PUSH"
+  ref_name: "main"
+  ref_type: "BRANCH"
+  fail_on_prepare_env_warning: true
+  trigger_condition: "ALWAYS"
+  actions:
+  - action: "Execute: test_application.py"
+    type: "BUILD"
+    working_directory: "/buddy/flask-connexion-rest-v3"
+    docker_image_name: "library/python"
+    docker_image_tag: "3.6.12"
+    execute_commands:
+    - "pip install -r requirements.txt"
+    - "python test_application.py"
+    cached_dirs:
+    - "/root/.cache/pip"
+    volume_mappings:
+    - "/:/buddy/flask-connexion-rest-v3"
+    trigger_condition: "ALWAYS"
+    shell: "BASH"
